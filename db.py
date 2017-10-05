@@ -1,19 +1,32 @@
 import ast
+import pandas
 
 
-data = []
+def get_data():
+    """ The function loads the data from the given file to a pandas 
+    dataframe
+    
+    """
+    data = []
+    with open('/home/shubhamjain/Desktop/db_click_classification/ad_data.csv') as f:
+        for line in f:
+            data.append(ast.literal_eval(line)) 
+    return pandas.DataFrame(data)
 
-with open('Desktop/ad_data.csv') as f:
-	for line in f:
-		data.append(ast.literal_eval(line)) 
 
-df = pandas.DataFrame(data)
-
-"""
-len(df.columns)
-12
+def basic_analysis(df):
+    """
+    """
+    pandas.set_option('display.width', 1000)
+    df.describe()
 
 
-'ad_id', 'advertiser_name'2, 'cat_id'11, 'category'2, 'channel_id'3,
-       'communication_line'2, 'event_type', 'insert_time'8, 'plateform'2,
-       'sesssion_id-', 'story_id', 'title'
+def data_preparation():
+    """
+    """
+    
+def classify():
+    """
+    """
+    
+    
