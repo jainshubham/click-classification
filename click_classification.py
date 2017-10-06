@@ -3,13 +3,10 @@ import pandas
 from sklearn import svm
 from sklearn.metrics import confusion_matrix, f1_score, recall_score, precision_score, roc_curve, auc
 from collections import defaultdict, Counter
-from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import train_test_split
 import numpy
-#import matplotlib.pyplot as plt
 
 
-random_state = numpy.random.RandomState(0)
 file_path = '/home/shubhamjain/Desktop/db_click_classification/ad_data.csv'
 
 class ClickClassification(object):
@@ -93,42 +90,16 @@ class ClickClassification(object):
         X=pandas.get_dummies(self.data_frame[['category', 'channel_id', 'insert_time', 'title']], drop_first=True)
         X.loc[:,'sesssion_id_click_count'] = self.data_frame.sesssion_id_click_count
         X.loc[:,'sesssion_id_impression_count'] = self.data_frame.sesssion_id_impression_count
-
-        cv = StratifiedKFold(n_splits=6)
-
         y=pandas.get_dummies(self.data_frame[['event_type']], drop_first=True)
-        #mysvm = svm.SVC(kernel='linear', class_weight={1: 1, 0: 3}, C=1).fit(X,y)
-        #mysvm_pred = mysvm.predict(X)
-        #print(confusion_matrix(mysvm_pred, y))
-        #print(f1_score(y, mysvm_pred))
-        #print(precision_score(y, mysvm_pred))
-        #print(recall_score(y, mysvm_pred))
-
-
-        classifier = classifier = svm.SVC(kernel='linear', probability=True,
-                             random_state=random_state)
-        tprs = []
-        aucs = []
-        mean_fpr = numpy.linspace(0, 1, 100)
-
-        i = 0
-        for X_train, X_test, y_train, y_test in train_test_split(X, y):
-            probas_ = classifier.fit(X_train, y_train).predict_proba(X_test)
-            # Compute ROC curve and area the curve
-            fpr, tpr, thresholds = roc_curve(y_test, probas_[:, 1])
-            tprs.append(interp(mean_fpr, fpr, tpr))
-            tprs[-1][0] = 0.0
+        for i in range(5):
+            X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = numpy.random.RandomState(0))
+            cc_svm = svm.SVC(kernel='linear', class_weight={1: 1, 0: i}, C=1, probability=True, random_state=numpy.random.RandomState(0)).fit(X_train, y_train)
+            probas = cc_svm.predict_proba(X_test)
+            fpr, tpr, thresholds = roc_curve(y_test, probas[:, 1])
             roc_auc = auc(fpr, tpr)
-            
-            aucs.append(roc_auc)
-            #plt.plot(fpr, tpr, lw=1, alpha=0.3,
-            #        label='ROC fold %d (AUC = %0.2f)' % (i, roc_auc))
-
-            i += 1
-            print("{} {}".format(fpr, tpr)) 
-        print(aucs)
-
-
+            cc_svm_pred = cc_svm.predict(X_test)
+            print(confusion_matrix(cc_svm_pred, y_test))
+            print(roc_auc)
 
 def run():
     cc = ClickClassification()
