@@ -1,4 +1,10 @@
+Note: To be viewed without markup.
 
+#### Click classifier 
+
+A support vector machine based click classifier.
+
+##### Data Analysis Steps
 
 A. After the data is loaded, the first step is to look for the number and types of features available. 
    1.   We see that there are 12 features available to us. 
@@ -62,8 +68,12 @@ story_id_impression_count                                        0.008744
 
    1. ad_id and story_id have co-relations very close to 0 and therefore we will not be including these two columns in our analysis.
 
-G. Run a svm classification with different parameters. I use svm because it just works for me most of the times. Run cross validation for class weights, degree and kernel. 
+##### Train Classifier
+
+A. Run a svm classification with different parameters. I use svm because it just works for me most of the times. Run cross validation for class weights, degree and kernel. 
    1. class weight: 3, kernel: linear give the best results for our model.
    2. Some literature also mentions use of log-loss for analysis. This needs to be worked out. 
 
-
+##### Future Work
+   1. Make the algorithm online.
+   2. Try tree based methods or deep-learning.
