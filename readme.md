@@ -63,14 +63,12 @@ story_id_impression_count                                        0.008744
 
 ad_id and story_id have co-relations very close to 0 and therefore we will not be including these two columns in our analysis.
 
-G. Run a linear classification 
+G. Run a svm classification with different parameters. I use svm because it just works for me most of the times. Run cross validation for class weights, degree and kernel. 
+	i. 
 
-To do
+Future items:
 
+1. Different users will prefer different ads, so you first need to figure out what kinds of users like which ads, then you need to figure out what kinds of users visit your site at which times, then you need to put it all together to get an ad "block".  You need to figure out how to frame those smaller questions.
 
-learning curve 
-roc curve
-crossvalidation
-log-loss
-correct cost function
-see if click count and impression count can be exchanged
+2. Online learning.
+
