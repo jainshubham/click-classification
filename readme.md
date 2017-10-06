@@ -31,8 +31,11 @@ A. Run a svm classification with different parameters. I use svm because it just
 A. For a test case of 25000 items, our model has been able to predict almost all clicks while also predicting a similar number of false positives. 
 
 Confusion Matrix 
-|  162 |  215 |
-|    0 | 24623 | 
+
+    |162    |     215    |
+    |0         |    24623|
+
+
 AUC: 0.995903578646419
 
 
