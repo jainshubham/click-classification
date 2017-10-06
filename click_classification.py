@@ -92,14 +92,20 @@ class ClickClassification(object):
         X.loc[:,'sesssion_id_impression_count'] = self.data_frame.sesssion_id_impression_count
         y=pandas.get_dummies(self.data_frame[['event_type']], drop_first=True)
         for i in range(5):
-            X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = numpy.random.RandomState(0))
-            cc_svm = svm.SVC(kernel='linear', class_weight={1: 1, 0: i}, C=1, probability=True, random_state=numpy.random.RandomState(0)).fit(X_train, y_train)
-            probas = cc_svm.predict_proba(X_test)
-            fpr, tpr, thresholds = roc_curve(y_test, probas[:, 1])
-            roc_auc = auc(fpr, tpr)
-            cc_svm_pred = cc_svm.predict(X_test)
-            print(confusion_matrix(cc_svm_pred, y_test))
-            print(roc_auc)
+            for j in ['linear', 'rbf', 'poly']:
+                degree_range = 3
+                if j in 'poly':
+                    degree_range = 6
+                    for k in range(2, degree_range):
+                        X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = numpy.random.RandomState(0))
+                        cc_svm = svm.SVC(kernel=j, class_weight={1: 1, 0: i}, C=1, degree=k, probability=True, random_state=numpy.random.RandomState(0)).fit(X_train, y_train)
+                        probas = cc_svm.predict_proba(X_test)
+                        fpr, tpr, thresholds = roc_curve(y_test, probas[:, 1])
+                        roc_auc = auc(fpr, tpr)
+                        cc_svm_pred = cc_svm.predict(X_test)
+                        print("{} {} degree: {}".format(i, j, k))
+                        print(confusion_matrix(cc_svm_pred, y_test))
+                        print(roc_auc)
 
 def run():
     cc = ClickClassification()
