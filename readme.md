@@ -75,6 +75,13 @@ A. Run a svm classification with different parameters. I use svm because it just
    1. class weight: 3, kernel: linear give the best results for our model.
    2. Some literature also mentions use of log-loss for analysis. This needs to be worked out. 
 
+##### Result Summary
+
+A. For a test case of 25000 items, our model has been able to predict almost all clicks while also predicting a similar number of false positives. The confusion matrix for our analysis is as below. 
+
+[[  161   197]
+ [    2 24640]]
+
 ##### Future Work
    1. Make the algorithm online.
    2. Try tree based methods or deep-learning.
