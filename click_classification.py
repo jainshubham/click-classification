@@ -1,11 +1,11 @@
 import ast
 from collections import defaultdict, Counter
 
-import numpy
 import pandas
 from sklearn import svm
 from sklearn.metrics import confusion_matrix, roc_curve, auc
 from sklearn.model_selection import train_test_split
+import unittest
 
 file_path = '/home/shubhamjain/Desktop/db_click_classification/ad_data.csv'
 DEGREE_RANGE = 12
@@ -74,14 +74,14 @@ class ClickClassification(object):
          # print(data_frame_slice.corr())
 
         # drop advertiser_name and communication_line as these are perfectly correlated with category.
-        self.data_frame = self.data_frame.drop('advertiser_name', 1)
-        self.data_frame = self.data_frame.drop('communication_line', 1)
+        # self.data_frame = self.data_frame.drop('advertiser_name', 1)
+        # self.data_frame = self.data_frame.drop('communication_line', 1)
 
         # drop empty cat_id
-        self.data_frame = self.data_frame.drop('cat_id', 1)
+        # self.data_frame = self.data_frame.drop('cat_id', 1)
 
         # drop non-varying column plateform
-        self.data_frame = self.data_frame.drop('plateform', 1)
+        # self.data_frame = self.data_frame.drop('plateform', 1)
 
         # convert time to 6 quarters.
         self.data_frame.insert_time = pandas.Categorical(
@@ -141,3 +141,19 @@ def run():
     cc.get_data()
     cc.transform_data()
     cc.model_validation()
+
+class TestClickClassification(unittest.TestCase):
+
+    def test_get_data(self):
+        cc = ClickClassification()
+        cc.get_data()
+        self.assertEquals(len(cc.data_frame.columns), 12)
+
+    def test_transform_data(self):
+        cc = ClickClassification()
+        cc.get_data()
+        cc.transform_data()
+        self.assertEquals(len(cc.data_frame.columns), 16)
+
+if __name__ == '__main__':
+    unittest.main()
