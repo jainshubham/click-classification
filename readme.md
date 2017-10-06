@@ -77,10 +77,13 @@ A. Run a svm classification with different parameters. I use svm because it just
 
 ##### Result Summary
 
-A. For a test case of 25000 items, our model has been able to predict almost all clicks while also predicting a similar number of false positives. The confusion matrix for our analysis is as below. 
+A. For a test case of 25000 items, our model has been able to predict almost all clicks while also predicting a similar number of false positives. 
 
-[[  161   197]
- [    2 24640]]
+Confusion Matrix 
+ [[  162   215]
+ [    0 24623]] 
+AUC: 0.995903578646419
+
 
 ##### Future Work
    1. Make the algorithm online.
