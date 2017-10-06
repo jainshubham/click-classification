@@ -73,15 +73,9 @@ class ClickClassification(object):
             drop_first=True)
          # print(data_frame_slice.corr())
 
-        # drop advertiser_name and communication_line as these are perfectly correlated with category.
-        # self.data_frame = self.data_frame.drop('advertiser_name', 1)
-        # self.data_frame = self.data_frame.drop('communication_line', 1)
-
-        # drop empty cat_id
-        # self.data_frame = self.data_frame.drop('cat_id', 1)
-
-        # drop non-varying column plateform
-        # self.data_frame = self.data_frame.drop('plateform', 1)
+        # discard advertiser_name and communication_line as these are perfectly correlated with category.
+        # discard empty columns cat_id
+        # discard non-varying column plateform
 
         # convert time to 6 quarters.
         self.data_frame.insert_time = pandas.Categorical(
