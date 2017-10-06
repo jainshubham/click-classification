@@ -3,7 +3,7 @@
 A. After the data is loaded, the first step is to look for the number and types of features available. 
     i.   We see that there are 12 features available to us. 
     ii.  The advertiser_name has an obvious spelling mistake that we correct to contain only firstwall and no FirstWall.
-    iii. Cat_id and plateform have only one class type each and hence of no value for classificaiton, hence dropping these two columns.
+    iii. Cat_id and plateform have only one class type each and hence of no value for classification, hence dropping these two columns.
 
                ad_id advertiser_name  cat_id  category channel_id communication_line  event_type           insert_time plateform sesssion_id   story_id                                              title
 count         100000          100000  100000    100000     100000             100000      100000                100000    100000      100000     100000                                             100000
@@ -13,8 +13,8 @@ freq           18996           85645  100000     85645      86092              8
 
 
 B. It looks like a few of the features may be redundant. Co-relation analysis as below tells us that 
-	i.  Communication_line_Adda.com is perfectly corelated to negative of advertiser_name_firstwall. This implies that all the missing values in communication_line are firstwall.
-	ii. Communication_line, category and communication_line line are corelated therefore dropping advertiser_name and communication_line.
+	i.  Communication_line_Adda.com is perfectly correlated to negative of advertiser_name_firstwall. This implies that all the missing values in communication_line are firstwall.
+	ii. Communication_line, category and communication_line line are correlated therefore dropping advertiser_name and communication_line.
 
  
                               advertiser_name_firstwall  category_firstwall  channel_id_521  communication_line_Adda.com  communication_line_Firstwall
@@ -24,10 +24,10 @@ channel_id_521                                -0.981749           -0.981749     
 communication_line_Adda.com                   -1.000000           -1.000000        0.981749                     1.000000                     -0.163673
 communication_line_Firstwall                   0.163673            0.163673        0.026933                    -0.163673                      1.000000
 
-C. insert_time is a continous feature. We are converting insert_time into 6 categories of 4 hour each. There could be certain times of the day when people would be more likely to click.
+C. insert_time is a continous feature. We are converting insert_time into 6 categories of 4 hour each. There could be certain times of the day when people would be more likely to click. 
  
 
-D. session_id corresponds to user behaviour. Some users are more likely to click on ads than other. We categorize users based on number of past clicks and impressions. If a new user belongs to high clickers he is more likely to click again. A useful way would be to also include click impression ratio, but it proved difficult to evolve a metric for this.
+D. session_id corresponds to user behaviour. Some users are more likely to click on ads than other. We categorize users based on number of past clicks and impressions. If a new user belongs to high clickers he is more likely to click again. This looks like a good replacement of click through rate, taking means seems unnecessary calculation.
 
 E. Similar to session_id a profile based on past clicks and impression of story_ids are converted into categorical features. 
 
@@ -64,11 +64,7 @@ story_id_impression_count                                        0.008744
 ad_id and story_id have co-relations very close to 0 and therefore we will not be including these two columns in our analysis.
 
 G. Run a svm classification with different parameters. I use svm because it just works for me most of the times. Run cross validation for class weights, degree and kernel. 
-	i. 
+	i. class weight: 3, kernel: linear give the best results for our model.
+	ii. Some literature also mentions use of log-loss for analysis. This needs to be worked out. 
 
-Future items:
-
-1. Different users will prefer different ads, so you first need to figure out what kinds of users like which ads, then you need to figure out what kinds of users visit your site at which times, then you need to put it all together to get an ad "block".  You need to figure out how to frame those smaller questions.
-
-2. Online learning.
 
