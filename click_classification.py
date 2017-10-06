@@ -49,10 +49,8 @@ class ClickClassification(object):
         TODO: Test if we need impression through rate. Looks like we dont.
         """
         click_dict = defaultdict(int)
-        column_key = None
         for row in self.data_frame[[column_name, 'event_type']].itertuples():
-            if not column_key:
-                column_key = eval("row.{}".format(column_name))
+            column_key = eval("row.{}".format(column_name))
             if row.event_type == 'click':
                 click_dict[column_key] += 1
         return click_dict
