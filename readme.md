@@ -1,10 +1,11 @@
-Note: To be viewed without markup.
 
 #### Click classifier 
 
 A support vector machine based click classifier.
 
 ##### Data Analysis Steps
+
+Note: Tables are more readable without markup.
 
 A. After the data is loaded, the first step is to look for the number and types of features available. 
    1.   We see that there are 12 features available to us. 
