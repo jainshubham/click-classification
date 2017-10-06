@@ -13,7 +13,9 @@ B. It looks like a few of the features may be redundant. Co-relation analysis as
 
 C. insert_time is a continous feature. We are converting insert_time into 6 categories of 4 hour each. There could be certain times of the day when people would be more likely to click. 
  
-D. session_id corresponds to user behaviour. Some users are more likely to click on ads than other. We categorize users based on number of past clicks and impressions. If a new user belongs to high clickers he is more likely to click again. This looks like a good replacement of click through rate, taking means seems unnecessary calculation.
+D. session_id corresponds to user behaviour. Some users are more likely to click on ads than other. We categorize users based on number of past clicks and impressions. If a new user belongs to high clickers he is more likely to click again. This looks like a good replacement of click through rate. 
+
+E. We could calculate click through rate for specific adds. This may help reduce the false positives. I could not implement this for the lack of time.
 
 E. Similar to session_id a profile based on past clicks and impression of story_ids are converted into categorical features. 
 
